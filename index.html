@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zorathedeveloper00 | Full Stack, AI & Marketplace</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- CSS VARIABLES (MERGED THEME) --- */
+        :root {
+            --bg-deep: #050505;
+            --gold: #D4AF37;
+            --gold-light: #F3E5AB;
+            --gold-dim: #8a701e;
+            --red: #B22222;      
+            --red-glow: #ff3333;
+            --white: #ffffff;
+            --text-muted: #cccccc;
+            --gray-mid: #666666;
+            
+            /* Glassmorphism Variables */
+            --glass-bg: rgba(10, 10, 10, 0.65);
+            --glass-border: rgba(212, 175, 55, 0.2);
+            --glass-highlight: rgba(212, 175, 55, 0.05);
+            
+            --font-display: 'Playfair Display', serif; 
+            --font-body: 'Inter', sans-serif;
+            --font-code: 'JetBrains Mono', monospace;
+        }
+
+        /* --- RESET & BASE --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--white);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* --- BACKGROUND VIDEO --- */
+        .video-background {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover; z-index: -1;
+            filter: brightness(0.4) grayscale(20%); /* Cinematic look */
+        }
+        /* Fallback gradient if video fails */
+        body::before {
+            content: "";
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 50%, #1a0505 0%, #000000 100%);
+            z-index: -2;
+        }
+
+        /* --- UTILITIES & ANIMATIONS --- */
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 2; }
+        
+        .gold-text { color: var(--gold); }
+        .red-text { color: var(--red); }
+        .gradient-text {
+            background: linear-gradient(120deg, var(--gold), var(--red), var(--gold));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            background-size: 200% auto;
+            animation: shine 5s linear infinite;
+        }
+
+        @keyframes shine { to { background-position: 200% center; } }
+
+        .section-padding { padding: 100px 0; }
+        
+        /* Glassmorphism Panel Class */
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        /* Scroll Reveal Animation Classes */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed; top: 0; width: 100%; padding: 15px 0;
+            background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border); z-index: 1000;
+            transition: 0.3s;
+        }
+        .nav-content { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: var(--font-display); font-size: 1.5rem; color: var(--gold); font-weight: 700; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+        .logo span { color: var(--white); }
+        
+        .nav-links { display: flex; gap: 30px; list-style: none; }
+        .nav-links a {
+            color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase;
+            letter-spacing: 1px; text-decoration: none; transition: 0.3s;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: ''; position: absolute; width: 0; height: 1px; bottom: -5px; left: 0;
+            background: var(--gold); transition: 0.3s;
+        }
+        .nav-links a:hover { color: var(--white); }
+        .nav-links a:hover::after { width: 100%; }
+
+        /* --- HERO --- */
+        .hero { min-height: 100vh; display: flex; align-items: center; padding-top: 80px; }
+        .hero-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 60px; align-items: center; }
+        
+        .hero-text h1 { font-family: var(--font-display); font-size: 4.5rem; line-height: 1.1; margin-bottom: 20px; text-shadow: 0 5px 15px rgba(0,0,0,0.8); }
+        
+        .status-pill {
+            display: inline-flex; align-items: center; gap: 10px;
+            background: rgba(178, 34, 34, 0.15); border: 1px solid var(--red);
+            color: var(--red); padding: 8px 16px; border-radius: 50px;
+            font-family: var(--font-code); font-size: 0.75rem; margin-bottom: 25px;
+            box-shadow: 0 0 10px rgba(178, 34, 34, 0.2);
+        }
+        
+        /* --- INTERACTIVE PROFILE IMAGE --- */
+        .profile-wrapper {
+            position: relative; width: 100%; max-width: 450px; aspect-ratio: 1/1;
+            margin: 0 auto; border: 1px solid var(--gold-dim); border-radius: 4px;
+            overflow: hidden; cursor: grab; background: #000;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 0 1px rgba(212, 175, 55, 0.1);
+        }
+        .profile-wrapper:active { cursor: grabbing; }
+        .profile-img {
+            width: 100%; height: 100%; object-fit: cover;
+            transform-origin: center center; user-select: none; pointer-events: none;
+            filter: sepia(30%) contrast(120%);
+        }
+        .profile-hint {
+            position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%);
+            background: rgba(0,0,0,0.8); border: 1px solid var(--gray-mid);
+            color: var(--gold); padding: 5px 15px; font-family: var(--font-code); font-size: 0.7rem;
+            pointer-events: none; z-index: 3; border-radius: 4px;
+        }
+
+        /* --- SLIDERS (SKILLS) --- */
+        .section-header {
+            display: flex; justify-content: space-between; align-items: flex-end; 
+            margin-bottom: 40px; border-bottom: 1px solid var(--glass-border); padding-bottom: 15px;
+        }
+        .section-title { font-family: var(--font-display); font-size: 2.5rem; color: var(--white); text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+        
+        .slider-track {
+            display: flex; gap: 30px; overflow-x: auto; padding-bottom: 40px;
+            scroll-behavior: smooth; scrollbar-width: none;
+        }
+        .slider-track::-webkit-scrollbar { display: none; }
+
+        .card {
+            min-width: 300px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--glass-border);
+            padding: 30px; border-radius: 4px;
+            transition: 0.4s ease; position: relative;
+        }
+        .card:hover {
+            transform: translateY(-10px); border-color: var(--gold);
+            background: rgba(20, 20, 20, 0.6);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%;
+            background: var(--red); opacity: 0; transition: 0.4s;
+        }
+        .card:hover::before { opacity: 1; }
+
+        .tech-pill {
+            display: inline-block; font-size: 0.75rem; font-family: var(--font-code);
+            color: var(--text-muted); border: 1px solid rgba(255,255,255,0.1);
+            padding: 6px 12px; margin: 0 8px 8px 0; border-radius: 2px;
+            transition: 0.3s; background: rgba(0,0,0,0.2);
+        }
+        .card:hover .tech-pill { border-color: var(--gold); color: var(--gold); }
+
+        .slider-btn {
+            background: rgba(0,0,0,0.5); border: 1px solid var(--glass-border);
+            color: var(--gold); width: 40px; height: 40px;
+            border-radius: 50%; cursor: pointer; transition: 0.3s;
+        }
+        .slider-btn:hover { background: var(--gold); color: #000; border-color: var(--gold); }
+
+        /* --- MARKETPLACE GRID --- */
+        .marketplace-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px;
+        }
+        .shop-card {
+            display: flex; flex-direction: column;
+            background: linear-gradient(145deg, rgba(20,20,20,0.8), rgba(10,10,10,0.9));
+            border: 1px solid var(--gray-dark); padding: 25px; border-radius: 4px;
+            transition: 0.3s; position: relative;
+        }
+        /* Fallback for var(--gray-dark) if not defined in root, usually #333 */
+        .shop-card { border-color: #333; } 
+
+        .shop-card:hover { border-color: var(--gold); transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+        
+        .price-tag { font-size: 1.4rem; color: var(--gold); font-family: var(--font-display); margin: 10px 0; font-weight: 700; }
+        .shop-desc { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 15px; line-height: 1.5; flex-grow: 1; }
+        
+        .shop-features li {
+            margin-bottom: 6px; color: var(--gray-mid); font-size: 0.85rem;
+            padding-left: 20px; position: relative; list-style: none;
+        }
+        .shop-features li::before { content: '▹'; position: absolute; left: 0; color: var(--red); }
+        
+        .warning-box {
+            background: rgba(178, 34, 34, 0.1); border-left: 3px solid var(--red);
+            padding: 10px; margin: 15px 0; font-size: 0.75rem; color: #d66; font-family: var(--font-code);
+        }
+
+        .btn-buy {
+            display: block; width: 100%; text-align: center; background: var(--gold);
+            color: #000; padding: 12px; font-weight: 700; text-transform: uppercase;
+            text-decoration: none; margin-top: 15px; transition: 0.3s; cursor: pointer; border: none;
+        }
+        .btn-buy:hover { background: #fff; box-shadow: 0 0 15px var(--gold); }
+
+        /* --- ZNC FOUNDATION --- */
+        .znc-container {
+            border: 1px solid var(--gold); padding: 40px;
+            background: rgba(0, 0, 0, 0.6); margin-top: 30px; border-radius: 4px;
+        }
+        .znc-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px; margin: 20px 0; font-family: var(--font-code); font-size: 0.8rem; color: var(--text-muted);
+        }
+        .znc-item {
+            padding: 12px; border: 1px solid var(--gray-dark); background: rgba(20,20,20,0.5);
+            text-align: center; transition: 0.3s; border-radius: 2px;
+        }
+        .znc-item:hover { border-color: var(--red); background: rgba(178, 34, 34, 0.1); color: #fff; cursor: default; }
+
+        /* --- UNIVERSAL LANGUAGES --- */
+        .lang-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 20px;
+        }
+        .lang-box {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding: 20px 10px; background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--glass-border); border-radius: 8px; transition: 0.3s;
+        }
+        .lang-box:hover { border-color: var(--red); background: rgba(178, 34, 34, 0.1); transform: translateY(-5px); }
+        .lang-icon-svg { width: 32px; height: 32px; margin-bottom: 10px; fill: var(--text-muted); transition: 0.3s; }
+        .lang-box:hover .lang-icon-svg { fill: var(--gold); transform: scale(1.1); }
+        .lang-name { font-size: 0.75rem; color: var(--text-muted); text-align: center; text-transform: uppercase; }
+
+        /* --- CONTACT FORM --- */
+        .feedback-container {
+            background: var(--glass-bg); border: 1px solid var(--border); padding: 50px;
+            max-width: 800px; margin: 50px auto; border-radius: 4px;
+        }
+        .form-control {
+            width: 100%; background: rgba(0, 0, 0, 0.5); border: 1px solid var(--gray-dark);
+            padding: 15px; color: var(--white); margin-bottom: 20px; font-family: var(--font-body);
+            transition: 0.3s;
+        }
+        .form-control:focus { outline: none; border-color: var(--gold); background: rgba(0,0,0,0.8); }
+        .btn-submit {
+            width: 100%; padding: 15px; background: linear-gradient(45deg, var(--red), #800000);
+            color: #fff; border: none; font-weight: 700; text-transform: uppercase; cursor: pointer; transition: 0.3s;
+        }
+        .btn-submit:hover { background: linear-gradient(45deg, var(--gold), #b8860b); color: #000; }
+
+        /* --- SOCIAL --- */
+        .social-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; }
+        .social-btn {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border);
+            padding: 25px; text-decoration: none; transition: 0.3s; border-radius: 4px;
+        }
+        .social-btn:hover { border-color: var(--gold); background: rgba(212, 175, 55, 0.05); transform: translateY(-5px); }
+        .social-icon { font-size: 2rem; margin-bottom: 10px; filter: grayscale(80%); transition: 0.3s; }
+        .social-btn:hover .social-icon { filter: grayscale(0%); transform: scale(1.1); }
+
+        /* --- TOAST --- */
+        #toast {
+            visibility: hidden; min-width: 250px; background-color: var(--gold); color: #000;
+            text-align: center; border-radius: 4px; padding: 16px; position: fixed; z-index: 2000;
+            left: 50%; bottom: 30px; transform: translateX(-50%); font-weight: bold; box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+        #toast.show { visibility: visible; animation: fadein 0.5s, fadeout 0.5s 2.5s; }
+
+        @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
+        @keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 900px) {
+            .hero-grid { grid-template-columns: 1fr; text-align: center; }
+            .hero-text h1 { font-size: 3rem; }
+            .profile-wrapper { width: 300px; }
+            .nav-links { display: none; } /* Could add a mobile toggle, kept simple for merge */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- BACKGROUND VIDEO -->
+    <video class="video-background" autoplay muted loop playsinline>
+        <source src="1776686708686703720p.mp4" type="video/mp4">
+        <!-- Browser does not support video fallback handled by body gradient -->
+    </video>
+
+    <!-- NAV -->
+    <nav>
+        <div class="container nav-content">
+            <div class="logo">Zora<span>TheDev</span></div>
+            <ul class="nav-links">
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#marketplace">Marketplace</a></li>
+                <li><a href="#community">ZNC Community</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="container hero-grid">
+            <div class="hero-text reveal">
+                <div class="status-pill">
+                    <span>●</span> Full Stack & Prompt Engineering
+                </div>
+                <h1>I'm <span class="gradient-text">Zora Gonzales(Zorathedev00)</span></h1>
+                <p style="color:var(--text-muted); max-width:600px; margin-bottom:30px; font-size: 1.1rem;">
+                    Expert in Full Stack Development, AI Integration, and Digital Data Services based in the Philippines.
+                </p>
+                <div style="margin-top:30px;">
+                    <a href="#marketplace" style="background:var(--gold); color:#000; padding:12px 30px; text-decoration:none; font-weight:bold; text-transform:uppercase; border-radius:2px; transition:0.3s;">Visit Shop</a>
+                </div>
+            </div>
+
+            <!-- Interactive Profile Image -->
+            <div class="profile-wrapper reveal" id="profileFrame">
+                <img src="FB_IMG_1776683788225.jpg" alt="Zorathedeveloper00" class="profile-img" id="profileImg" onerror="this.src='https://picsum.photos/seed/zora/500/500'">
+                <div class="profile-hint">DRAG • ZOOM • EXPLORE</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SKILLS SECTION (From Doc 2) -->
+    <section id="skills" class="section-padding">
+        <div class="container">
+            
+            <!-- Frontend Slider -->
+            <div class="section-header reveal">
+                <h2 class="section-title">Frontend <span class="gold-text">Engineering</span></h2>
+                <div>
+                    <button class="slider-btn" onclick="slide('frontend', -1)">←</button>
+                    <button class="slider-btn" onclick="slide('frontend', 1)">→</button>
+                </div>
+            </div>
+            <div class="slider-track reveal" id="track-frontend">
+                <div class="card">
+                    <h3 style="margin-bottom:15px; color:var(--gold);">Frameworks</h3>
+                    <div><span class="tech-pill">React</span><span class="tech-pill">Angular</span><span class="tech-pill">Vue.js</span><span class="tech-pill">AngularJS</span></div>
+                </div>
+                <div class="card">
+                    <h3 style="margin-bottom:15px; color:var(--gold);">Styling</h3>
+                    <div><span class="tech-pill">Tailwind CSS</span><span class="tech-pill">Bootstrap</span><span class="tech-pill">SASS</span><span class="tech-pill">CSS3</span></div>
+                </div>
+                <div class="card">
+                    <h3 style="margin-bottom:15px; color:var(--gold);">Core</h3>
+                    <div><span class="tech-pill">HTML5</span><span class="tech-pill">JavaScript</span><span class="tech-pill">TypeScript</span><span class="tech-pill">jQuery</span><span class="tech-pill">XML</span></div>
+                </div>
+                <div class="card">
+                    <h3 style="margin-bottom:15px; color:var(--gold);">Mobile</h3>
+                    <div><span class="tech-pill">Swift</span><span class="tech-pill">Kotlin</span><span class="tech-pill">React Native</span></div>
+                </div>
+            </div>
+
+            <br><br><br>
+
+            <!-- Backend Slider -->
+            <div class="section-header reveal">
+                <h2 class="section-title">Backend <span class="red-text">Architecture</span></h2>
+                <div>
+                    <button class="slider-btn" onclick="slide('backend', -1)">←</button>
+                    <button class="slider-btn" onclick="slide('backend', 1)">→</button>
+                </div>
+            </div>
+            <div class="slider-track reveal" id="track-backend">
+                <div class="card">
+                    <h3 style="margin-bottom:15px; color:var(--red);">Languages</h3>
+                    <div><span class="tech-pill">Python</span><span class="tech-pill">Node.js</span><span class="tech-pill">PHP</span><span class="tech-pill">Java</span><span class="tech-pill">C++</span><span class="tech-pill">Go</span><span class="tech-pill">R</span></div>
+                </div>
+                <div class="card">
+                    <h3 style="margin-bottom:15px; color:var(--red);">Frameworks</h3>
+                    <div><span class="tech-pill">Django</span><span class="tech-pill">Laravel</span><span class="tech-pill">Express</span><span class="tech-pill">ASP</span></div>
+                </div>
+                <div class="card">
+                    <h3 style="margin-bottom:15px; color:var(--red);">AI & Bots</h3>
+                    <div><span class="tech-pill">Prompt Engineering</span><span class="tech-pill">Discord.js</span><span class="tech-pill">NumPy</span><span class="tech-pill">Pandas</span></div>
+                </div>
+                <div class="card">
+                    <h3 style="margin-bottom:15px; color:var(--red);">Databases</h3>
+                    <div><span class="tech-pill">MySQL</span><span class="tech-pill">PostgreSQL</span><span class="tech-pill">MongoDB</span><span class="tech-pill">Firebase</span></div>
+                </div>
+            </div>
+
+            <br><br><br>
+
+            <!-- Languages Grid -->
+            <div class="reveal">
+                <div class="section-title" style="margin-bottom: 20px;">Universal <span class="gradient-text">Languages</span></div>
+                <div class="lang-grid">
+                    <div class="lang-box"><svg class="lang-icon-svg" viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6M12,8A4,4 0 0,1 16,12A4,4 0 0,1 12,16A4,4 0 0,1 8,12A4,4 0 0,1 12,8Z"/></svg><div class="lang-name">Python</div></div>
+                    <div class="lang-box"><svg class="lang-icon-svg" viewBox="0 0 24 24"><path d="M3,3H21V21H3V3M16.5,16.5V14H13.5V16.5H16.5M19.5,16.5V14H18V19.5H13.5V18H10.5V19.5H6V14H7.5V16.5H10.5V14H16.5Z"/></svg><div class="lang-name">JavaScript</div></div>
+                    <div class="lang-box"><svg class="lang-icon-svg" viewBox="0 0 24 24"><path d="M4,4H20V20H4V4M6,6V18H18V6H6M11,7H9V10H6V12H9V15H11V12H14V10H11V7M15,12H18V10H15V12Z"/></svg><div class="lang-name">C++</div></div>
+                    <div class="lang-box"><svg class="lang-icon-svg" viewBox="0 0 24 24"><path d="M12,2L2,12H4V22H20V12H22M12,5L17,10H7M6,12H18V20H6M9,15H15V17H9"/></svg><div class="lang-name">Java</div></div>
+                    <div class="lang-box"><svg class="lang-icon-svg" viewBox="0 0 24 24"><path d="M2,21L23,12L2,3V21Z"/></svg><div class="lang-name">Swift</div></div>
+                    <div class="lang-box"><svg class="lang-icon-svg" viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6Z"/></svg><div class="lang-name">Go</div></div>
+                    <div class="lang-box"><svg class="lang-icon-svg" viewBox="0 0 24 24"><path d="M12,2C6.48,2 2,6.48 2,12C2,17.52 6.48,22 12,22C17.52,22 22,17.52 22,12C22,6.48 17.52,2 12,2M12,4C16.42,4 20,7.58 20,12C20,16.42 16.42,20 12,20C7.58,20 4,16.42 4,12C4,7.58 7.58,4 12,4Z"/></svg><div class="lang-name">SQL</div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MARKETPLACE SECTION (From Doc 1) -->
+    <section id="marketplace" class="section-padding glass-panel">
+        <div class="container">
+            <div class="section-title reveal" style="margin-bottom: 10px;">Digital <span class="gold-text">Marketplace</span></div>
+            <p style="color:var(--text-muted); margin-bottom:40px;" class="reveal">
+                Free education & selling random stuff (Public / Private Digital Data).<br>
+                <span style="color:var(--gold);">Standard Price: ₱50 PHP ($0.89 USD)</span> per batch.
+            </p>
+
+            <div class="marketplace-grid">
+                <!-- 1. IP Address -->
+                <div class="shop-card reveal">
+                    <h3>Random IP Packages</h3>
+                    <p class="shop-desc">1000+ IPs per Country. 195 Countries supported.</p>
+                    <div class="price-tag">₱50 PHP / $0.89</div>
+                    <ul class="shop-features">
+                        <li>OSINT / Research</li>
+                        <li>Testing tools</li>
+                        <li>Traceroute experiments</li>
+                    </ul>
+                    <div class="warning-box">Private/Reserved IPs may exist. Use at own risk.</div>
+                    <button onclick="buyItem('IP Addresses')" class="btn-buy">Buy Now</button>
+                </div>
+
+                <!-- 2. MAC Address -->
+                <div class="shop-card reveal">
+                    <h3>Random MAC Address</h3>
+                    <p class="shop-desc">1000+ MACs per Set. Randomized vendor prefixes.</p>
+                    <div class="price-tag">₱50 PHP / $0.89</div>
+                    <ul class="shop-features">
+                        <li>Synthetic for testing</li>
+                        <li>Pen-testing tools</li>
+                        <li>WiFi simulations</li>
+                    </ul>
+                    <div class="warning-box">Not linked to real devices. Generator only.</div>
+                    <button onclick="buyItem('MAC Addresses')" class="btn-buy">Buy Now</button>
+                </div>
+
+                <!-- 3. IMEI -->
+                <div class="shop-card reveal">
+                    <h3>Random IMEI Numbers</h3>
+                    <p class="shop-desc">1000+ IMEIs. Valid Luhn format.</p>
+                    <div class="price-tag">₱50 PHP / $0.89</div>
+                    <ul class="shop-features">
+                        <li>Mobile footprinting</li>
+                        <li>App development QA</li>
+                        <li>Validation training</li>
+                    </ul>
+                    <div class="warning-box">Not linked to real phones.</div>
+                    <button onclick="buyItem('IMEI Numbers')" class="btn-buy">Buy Now</button>
+                </div>
+
+                <!-- 4. Phone Numbers -->
+                <div class="shop-card reveal">
+                    <h3>Random Phone Numbers</h3>
+                    <p class="shop-desc">1,000+ Numbers per Country (Mobile/Landline).</p>
+                    <div class="price-tag">₱50 PHP / $0.89</div>
+                    <ul class="shop-features">
+                        <li>OSINT / Research</li>
+                        <li>App Validation</li>
+                        <li>Format Simulation</li>
+                    </ul>
+                    <div class="warning-box">Randomly generated or public source. No SMS guarantee.</div>
+                    <button onclick="buyItem('Phone Numbers')" class="btn-buy">Buy Now</button>
+                </div>
+
+                <!-- 5. Apple ID Emails -->
+                <div class="shop-card reveal">
+                    <h3>Apple ID Email Lists</h3>
+                    <p class="shop-desc">1000+ Unique Apple ID emails per Country.</p>
+                    <div class="price-tag">₱50 PHP / $0.89</div>
+                    <ul class="shop-features">
+                        <li>OSINT & Recon</li>
+                        <li>Testing Tools</li>
+                        <li>Email Pattern Research</li>
+                    </ul>
+                    <div class="warning-box">Synthetic emails. No accounts/passwords included.</div>
+                    <button onclick="buyItem('Apple ID Emails')" class="btn-buy">Buy Now</button>
+                </div>
+
+                <!-- 6. Windows Keys -->
+                <div class="shop-card reveal">
+                    <h3>Windows Product Keys</h3>
+                    <p class="shop-desc">10,000+ Keys (Win 10 & 11 Editions).</p>
+                    <div class="price-tag">₱50 PHP / $0.89</div>
+                    <ul class="shop-features">
+                        <li>Pentesting</li>
+                        <li>Activation checkers</li>
+                        <li>Learning & Experiments</li>
+                    </ul>
+                    <div class="warning-box">Randomly generated. Not for activation.</div>
+                    <button onclick="buyItem('Windows Keys')" class="btn-buy">Buy Now</button>
+                </div>
+
+                <!-- 7. Hash Generation -->
+                <div class="shop-card reveal">
+                    <h3>Live Hash Generation</h3>
+                    <p class="shop-desc">1,000 Hashes per Log (MD5, SHA, etc.).</p>
+                    <div class="price-tag">₱50 PHP / $0.89</div>
+                    <ul class="shop-features">
+                        <li>Security Testing</li>
+                        <li>Fast & Reliable</li>
+                        <li>Multiple Formats</li>
+                    </ul>
+                    <div class="warning-box">Generated live for testing.</div>
+                    <button onclick="buyItem('Hash Generation')" class="btn-buy">Buy Now</button>
+                </div>
+
+                <!-- 8. UUID Generation -->
+                <div class="shop-card reveal">
+                    <h3>Live UUID Generation</h3>
+                    <p class="shop-desc">10,000 UUIDs per Log (195 Country Support).</p>
+                    <div class="price-tag">₱50 PHP / $0.89</div>
+                    <ul class="shop-features">
+                        <li>Pentesting Projects</li>
+                        <li>Fast Delivery</li>
+                        <li>High Quality</li>
+                    </ul>
+                    <div class="warning-box">Generated live. No actual checks.</div>
+                    <button onclick="buyItem('UUIDs')" class="btn-buy">Buy Now</button>
+                </div>
+
+                <!-- 9. JWT Tokens -->
+                <div class="shop-card reveal">
+                    <h3>JWT Token Generator</h3>
+                    <p class="shop-desc">1,000 Tokens (HS256, RS256, etc.).</p>
+                    <div class="price-tag">₱50 PHP / $0.89</div>
+                    <ul class="shop-features">
+                        <li>Auth Testing</li>
+                        <li>Custom Payload</li>
+                        <li>Ready for Integration</li>
+                    </ul>
+                    <div class="warning-box">Generated live. No simulation.</div>
+                    <button onclick="buyItem('JWT Tokens')" class="btn-buy">Buy Now</button>
+                </div>
+
+                <!-- 10. Vehicle Plates -->
+                <div class="shop-card reveal">
+                    <h3>Vehicle Plate Generator</h3>
+                    <p class="shop-desc">1,000 Plate Numbers per Log.</p>
+                    <div class="price-tag">₱50 PHP / $0.89</div>
+                    <ul class="shop-features">
+                        <li>System Testing</li>
+                        <li>Database Population</li>
+                        <li>Realistic Formats</li>
+                    </ul>
+                    <div class="warning-box">Live / Not Live plate number options.</div>
+                    <button onclick="buyItem('Vehicle Plates')" class="btn-buy">Buy Now</button>
+                </div>
+
+                <!-- 11. FB Data -->
+                <div class="shop-card reveal">
+                    <h3>FB Profile Data v1.95</h3>
+                    <p class="shop-desc">1,000 Profiles per Log. 195 fields supported.</p>
+                    <div class="price-tag">₱50 PHP / $0.89</div>
+                    <ul class="shop-features">
+                        <li>Structured Testing Data</li>
+                        <li>System Integration</li>
+                        <li>Not Live Data</li>
+                    </ul>
+                    <div class="warning-box">No simulator. Testing only.</div>
+                    <button onclick="buyItem('FB Profile Data')" class="btn-buy">Buy Now</button>
+                </div>
+
+                <!-- 12. Insta Data -->
+                <div class="shop-card reveal">
+                    <h3>Insta Profile Data v1.95</h3>
+                    <p class="shop-desc">1,000 Profiles per Log. 195 fields supported.</p>
+                    <div class="price-tag">₱50 PHP / $0.89</div>
+                    <ul class="shop-features">
+                        <li>Well-Structured</li>
+                        <li>App Development</li>
+                        <li>Not Live Data</li>
+                    </ul>
+                    <div class="warning-box">No simulator. Testing only.</div>
+                    <button onclick="buyItem('Insta Profile Data')" class="btn-buy">Buy Now</button>
+                </div>
+
+                <!-- 13. YouTube Data -->
+                <div class="shop-card reveal">
+                    <h3>YouTube Creator Data v1.95</h3>
+                    <p class="shop-desc">1,000 Creators per Log. 195 fields supported.</p>
+                    <div class="price-tag">₱50 PHP / $0.89</div>
+                    <ul class="shop-features">
+                        <li>Organized Data</li>
+                        <li>App Testing</li>
+                        <li>Not Live Data</li>
+                    </ul>
+                    <div class="warning-box">No simulator. Testing only.</div>
+                    <button onclick="buyItem('YouTube Data')" class="btn-buy">Buy Now</button>
+                </div>
+
+                <!-- 14. Discord Links -->
+                <div class="shop-card reveal">
+                    <h3>Discord.gg Link Gen v2.0</h3>
+                    <p class="shop-desc">10,000 Links per Batch. Vanity URL patterns.</p>
+                    <div class="price-tag">₱75 PHP / $1.29</div>
+                    <ul class="shop-features">
+                        <li>SE Testing</li>
+                        <li>Bulk Domain Scanning</li>
+                        <li>Copy/Export Ready</li>
+                    </ul>
+                    <div class="warning-box">Valid patterns only. No API calls.</div>
+                    <button onclick="buyItem('Discord Links')" class="btn-buy">Buy Now</button>
+                </div>
+
+                <!-- 15. UDP Log Generators -->
+                <div class="shop-card reveal">
+                    <h3>UDP Log Gen v1.95</h3>
+                    <p class="shop-desc">DNS, DHCP, NTP, SNMP Traffic (1000 logs).</p>
+                    <div class="price-tag">₱50 PHP / $0.89</div>
+                    <ul class="shop-features">
+                        <li>Network Simulation</li>
+                        <li>SIEM / IDS Testing</li>
+                        <li>Clean Structured Output</li>
+                    </ul>
+                    <div class="warning-box">Not live traffic. No real interaction.</div>
+                    <button onclick="buyItem('UDP Logs')" class="btn-buy">Buy Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ZNC FOUNDATION COMMUNITY (From Doc 1) -->
+    <section id="community" class="section-padding">
+        <div class="container reveal">
+            <h2 class="section-title" style="text-align:center;">ZNC Foundation <span class="gold-text">Community</span></h2>
+            <div class="znc-container">
+                <h3 style="color:var(--gold); margin-bottom:20px; text-align:center; font-family: var(--font-display);">Welcome to ZeroDays Night Club</h3>
+                <p style="margin-bottom:30px; text-align:center; color:var(--text-muted);">
+                    First thing you need to do: Go to <strong style="color:var(--red);">#🚨2nd-verification</strong> and then react to get access to full features.
+                </p>
+                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">introduction</h4>
+                <div class="znc-grid">
+                    <div class="znc-item">#✨my-social-media</div>
+                    <div class="znc-item">#🚨2nd-verification</div>
+                    <div class="znc-item">#🚧-welcomer</div>
+                    <div class="znc-item">#🧭review</div>
+                    <div class="znc-item">#🗺️announc-reviews </div>
+                </div>
+                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">boardlab area</h4>
+                <div class="znc-grid">
+                    <div class="znc-item">#✨confession-1</div>
+                    <div class="znc-item">#✨confession-2</div>
+                    <div class="znc-item">#🚧tutorial-confess</div>
+                    <div class="znc-item">#🚧confess-command </div>
+                </div>
+                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">Market Sales</h4>
+                <div class="znc-grid">
+                    <div class="znc-item">#📳ip-address</div>
+                    <div class="znc-item">#📳mac-address</div>
+                    <div class="znc-item">#📳imei-number</div>
+                    <div class="znc-item">#📳email</div>
+                    <div class="znc-item">#📳apple-id</div>
+                    <div class="znc-item">#📳private-ip-address</div>
+                    <div class="znc-item">#📳window-product-key</div>
+                    <div class="znc-item">#📳-etc (uuid, hash, jwt)</div>
+                    <div class="znc-item">#✨free-books-here-patch-1</div>
+                    <div class="znc-item">#✨free-books-here-patch-2</div>
+                    <div class="znc-item">#✨free-books-here-patch-3</div>
+                    <div class="znc-item">#✨free-books-here-patch-4</div>
+                    <div class="znc-item">#✨free-books-here-patch-5 </div>
+                </div>
+                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">lesson of course</h4>
+                <div class="znc-grid">
+                    <div class="znc-item">#🧑‍🧒astrobiology </div>
+                    <div class="znc-item">#🧑‍🧒biology </div>
+                    <div class="znc-item">#🧑‍🧒doctor</div>
+                    <div class="znc-item">#🧑‍🧒math</div>
+                    <div class="znc-item">#🧑‍🧒marketing</div>
+                    <div class="znc-item">#🧑‍🧒engineer</div>
+                    <div class="znc-item">#🧑‍🧒science</div>
+                    <div class="znc-item">#🧑‍🧒it</div>
+                    <div class="znc-item">#🧑‍🧒astrology </div>
+                </div>
+                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">witch craft spell</h4>
+                <div class="znc-grid">
+                    <div class="znc-item">#📟spell</div>
+                    <div class="znc-item">#📟work-enhance </div>
+                </div>
+                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">Spirituality</h4>
+                <div class="znc-grid">
+                    <div class="znc-item">#🐉meditation</div>
+                    <div class="znc-item">#🐉awakening</div>
+                    <div class="znc-item">#🐉escape-matrix</div>
+                    <div class="znc-item">#🐉ask-question</div>
+                    <div class="znc-item">#🐉ask-question-tutorial</div>
+                    <div class="znc-item">#🐉unlimited-money</div>
+                    <div class="znc-item">#🐉unlimited-knowledge </div>
+                </div>
+                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">chat shot</h4>
+                <div class="znc-grid">
+                    <div class="znc-item">#🤯chatgpt</div>
+                    <div class="znc-item">#🤯gemini</div>
+                    <div class="znc-item">#🤯others </div>
+                </div>
+                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">information</h4>
+                <div class="znc-grid">
+                    <div class="znc-item">#🛠️information-technology-and-arns</div>
+                    <div class="znc-item">#🔍tools</div>
+                    <div class="znc-item">#🚧linux-commands</div>
+                    <div class="znc-item">#🧳english-way</div>
+                    <div class="znc-item">#📳prompt </div>
+                </div>
+                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">status social</h4>
+                <div class="znc-grid">
+                    <div class="znc-item">#🚨full-stack-dev</div>
+                    <div class="znc-item">#🧑‍💻cyber-security</div>
+                    <div class="znc-item">#🧑‍💻ethics-hacker</div>
+                    <div class="znc-item">#🧑‍💻illegal-hacker</div>
+                    <div class="znc-item">#🧑‍💻programming</div>
+                    <div class="znc-item">#🧑‍💻etc</div>
+                    <div class="znc-item">#🧑‍💻hacker-thoughts </div>
+                </div>
+                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">dashboard fun</h4>
+                <div class="znc-grid">
+                    <div class="znc-item">#🖼️-self-pics</div>
+                    <div class="znc-item">#🖼️-memes</div>
+                    <div class="znc-item">#🖼️-anim-pics</div>
+                    <div class="znc-item">#🖼️-ai-pics </div>
+                </div>
+                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">main laboratory</h4>
+                <div class="znc-grid">
+                    <div class="znc-item">#⛺main-chat</div>
+                    <div class="znc-item">#⛺english-chat</div>
+                    <div class="znc-item">#⛺bot-chat </div>
+                </div>
+                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">voice channel</h4>
+                <div class="znc-grid">
+                    <div class="znc-item">#👁️karaoke-rent </div>
+                </div>
+                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">Custom channel</h4>
+                <div class="znc-grid">
+                    <div class="znc-item">#🖼️chat-bot</div>
+                    <div class="znc-item">#💬demo-1</div>
+                    <div class="znc-item">#💬demo-2</div>
+                    <div class="znc-item">#💬demo-3</div>
+                    <div class="znc-item">#💬demo-4</div>
+                    <div class="znc-item">#💬demo-5</div>
+                    <div class="znc-item">#💬demo-6</div>
+                </div>
+                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">personality traits</h4>
+                <div class="znc-grid">
+                    <div class="znc-item">#🍸share-your-personality-here</div>
+                    <div class="znc-item">#🍸zodiac-sign</div>
+                    <div class="znc-item">#🍸negative-traits</div>
+                    <div class="znc-item">#🍸common-traits</div>
+                    <div class="znc-item">#🍸positive-traits </div>
+                </div>
+                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">Public documents</h4>
+                <div class="znc-grid">
+                    <div class="znc-item">#🌐-social-media</div>
+                    <div class="znc-item">#🌐-social-website</div>
+                    <div class="znc-item">#🌐-social-link</div>
+                    <div class="znc-item">#🌐-social-web </div>
+                </div>
+                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">Public Tools review</h4>
+                <div class="znc-grid">
+                    <div class="znc-item">#📚tutorial-of-tools</div>
+                    <div class="znc-item">#📚drop-here-the-github-tools </div>
+                </div>
+                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">artificial intelligence</h4>
+                <div class="znc-grid">
+                    <div class="znc-item"> #📼tutorial-how-to-use-zora-bot</div>
+                    <div class="znc-item">#📼zora-the-bot</div>
+                    <div class="znc-item">#🌐chat-gpt-3-tutorial</div>
+                    <div class="znc-item">#🌐chat-gpt-3</div>
+                    <div class="znc-item">#🐉-astrology-chat-bot-tutorial</div>
+                    <div class="znc-item">#🐉-astrology-chat-bot</div>
+                    <div class="znc-item">#🌐avd-chat-tutorial</div>
+                    <div class="znc-item">#🌐avd-chat</div>
+                    <div class="znc-item">#🛑avd2-chat-bot-tutorial</div>
+                    <div class="znc-item">#🛑avd2-chat-bot</div>
+                    <div class="znc-item">#💬avd3-tutorial</div>
+                    <div class="znc-item">#💬avd3-chat</div>
+                    <div class="znc-item">#🚨avd4-tutorial</div>
+                    <div class="znc-item">#🚨avd4-chat</div>
+                </div>
+                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">Regional vs says info</h4>
+                <div class="znc-grid">
+                    <div class="znc-item">#🚧-books-versus-say-here </div>
+                </div>
+                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">Public project</h4>
+                <div class="znc-grid">
+                    <div class="znc-item">#🌐project-code-for-free</div>
+                </div>
+                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">Public education</h4>
+                <div class="znc-grid">
+                    <div class="znc-item"> #📟random-books</div>
+                    <div class="znc-item">#📟selling-tc</div>
+                    <div class="znc-item">#💬tips-for-study</div>
+                </div>
+                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">Hacking tools</h4>
+                <div class="znc-grid">
+                    <div class="znc-item">#📼hacking-tools</div>
+                    <div class="znc-item">#📼how-to-hack-tutorial</div>
+                </div>
+                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">Hacking journey step</h4>
+                <div class="znc-grid">
+                    <div class="znc-item"> #🛠️welcome-to-newbie</div>
+                    <div class="znc-item">#🛠️lawyer-rules-here </div>
+                </div>
+                <p style="margin-top:30px; text-align:center; color:var(--text-muted); font-size:0.9rem;">
+                    We also have hacking tools, games suggestions, personality traits, and more!<br>
+                    <strong class="gold-text">Connect below to join</strong>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOCIAL MEDIA -->
+    <section class="section-padding">
+        <div class="container">
+            <h2 class="section-title" style="text-align:center;">Connect</h2>
+            <div class="social-grid" style="margin-top:40px;">
+                <a href="https://www.instagram.com/zorathedeveloper00?igsh=Z3ZoenR4emszd2ht" target="_blank" class="social-btn">
+                    <div class="social-icon">📷</div>
+                    <div class="lang-name">Instagram</div>
+                </a>
+                <a href="https://www.facebook.com/profile.php?id=61576764760572" target="_blank" class="social-btn">
+                    <div class="social-icon">📘</div>
+                    <div class="lang-name">Facebook</div>
+                </a>
+                <a href="https://youtube.com/@zorathedev00?si=26tsaDRdLsQD89FS" target="_blank" class="social-btn">
+                    <div class="social-icon">▶️</div>
+                    <div class="lang-name">YouTube</div>
+                </a>
+                <a href="https://tiktok.com/@zorathedev00" target="_blank" class="social-btn">
+                    <div class="social-icon">🎵</div>
+                    <div class="lang-name">TikTok</div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEEDBACK FORM -->
+    <section id="contact" class="section-padding glass-panel">
+        <div class="container reveal">
+            <div class="feedback-container">
+                <h2 style="text-align:center; margin-bottom:40px; font-family:var(--font-display);">Feedback & Requests</h2>
+                <form id="contactForm" onsubmit="handleForm(event)">
+                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div>
+                            <label style="display:block; margin-bottom:10px; color:var(--gold); font-size:0.8rem; text-transform:uppercase;">Name</label>
+                            <input type="text" name="name" class="form-control" placeholder="Full Name" required>
+                        </div>
+                        <div>
+                            <label style="display:block; margin-bottom:10px; color:var(--gold); font-size:0.8rem; text-transform:uppercase;">Age</label>
+                            <input type="number" name="age" class="form-control" placeholder="Age" required>
+                        </div>
+                    </div>
+                    <div style="margin-top:20px;">
+                        <label style="display:block; margin-bottom:10px; color:var(--gold); font-size:0.8rem; text-transform:uppercase;">Email</label>
+                        <input type="email" name="email" class="form-control" placeholder="your@email.com" required>
+                    </div>
+                    <div style="margin-top:20px;">
+                        <label style="display:block; margin-bottom:10px; color:var(--gold); font-size:0.8rem; text-transform:uppercase;">Description / Reasons</label>
+                        <textarea name="message" class="form-control" rows="5" placeholder="Project details, feedback, or collaboration reasons..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit" style="margin-top:20px;">Send Request</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer style="padding:40px 0; text-align:center; border-top:1px solid var(--glass-border); font-size: 0.9rem; color:var(--text-muted);">
+        <div class="container">
+            <p style="color:var(--gold); font-family:var(--font-display); font-size: 1.2rem; margin-bottom:10px;">Zorathedeveloper00</p>
+            <p>&copy; 2024 All Rights Reserved.</p>
+            <p style="margin-top:10px; font-size: 0.8rem;">Philippines, Asia</p>
+        </div>
+    </footer>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast">Email Client Opening...</div>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // --- 1. SLIDER FUNCTION ---
+        function slide(id, direction) {
+            const track = document.getElementById(`track-${id}`);
+            if(track) {
+                track.scrollBy({ left: direction * 350, behavior: 'smooth' });
+            }
+        }
+
+        // --- 2. INTERACTIVE PROFILE (PAN & ZOOM) ---
+        const frame = document.getElementById('profileFrame');
+        const img = document.getElementById('profileImg');
+        
+        let state = { scale: 1, pointX: 0, pointY: 0, panning: false, startX: 0, startY: 0 };
+
+        function updateTransform() {
+            if(img) img.style.transform = `translate(${state.pointX}px, ${state.pointY}px) scale(${state.scale})`;
+        }
+
+        if(frame) {
+            // Zoom
+            frame.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                const delta = -Math.sign(e.deltaY) * 0.1;
+                state.scale = Math.min(Math.max(0.5, state.scale + delta), 3);
+                updateTransform();
+            });
+
+            // Drag (Mouse)
+            frame.addEventListener('mousedown', (e) => {
+                state.panning = true;
+                state.startX = e.clientX - state.pointX;
+                state.startY = e.clientY - state.pointY;
+                frame.style.cursor = 'grabbing';
+            });
+
+            window.addEventListener('mouseup', () => { 
+                if(state.panning) {
+                    state.panning = false; 
+                    frame.style.cursor = 'grab'; 
+                }
+            });
+
+            window.addEventListener('mousemove', (e) => {
+                if (!state.panning) return;
+                e.preventDefault();
+                state.pointX = e.clientX - state.startX;
+                state.pointY = e.clientY - state.startY;
+                updateTransform();
+            });
+
+            // Touch (Mobile)
+            frame.addEventListener('touchstart', (e) => {
+                if(e.touches.length === 1) {
+                    state.panning = true;
+                    state.startX = e.touches[0].clientX - state.pointX;
+                    state.startY = e.touches[0].clientY - state.pointY;
+                }
+            });
+
+            frame.addEventListener('touchmove', (e) => {
+                if (state.panning && e.touches.length === 1) {
+                    e.preventDefault();
+                    state.pointX = e.touches[0].clientX - state.startX;
+                    state.pointY = e.touches[0].clientY - state.startY;
+                    updateTransform();
+                }
+            });
+        }
+
+        // --- 3. SCROLL REVEAL ANIMATION ---
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // --- 4. BUY & FORM HANDLING (NO NATIVE ALERT) ---
+        function showToast(message) {
+            const x = document.getElementById("toast");
+            x.innerText = message;
+            x.className = "show";
+            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+        }
+
+        function buyItem(itemName) {
+            // Create mailto link dynamically
+            const subject = encodeURIComponent(`Buy: ${itemName}`);
+            const body = encodeURIComponent("Hi Zora, I am interested in purchasing the following item:\n\n" + itemName + "\n\nPlease send payment details.");
+            window.location.href = `mailto:zorathedevdeveloper@gmail.com?subject=${subject}&body=${body}`;
+            showToast("Opening Mail Client...");
+        }
+
+        function handleForm(e) {
+            e.preventDefault();
+            const form = e.target;
+            const formData = new FormData(form);
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const message = formData.get('message');
+            
+            const subject = encodeURIComponent(`Portfolio Request from ${name}`);
+            const body = encodeURIComponent(`Name: ${name}\nAge: ${formData.get('age')}\nEmail: ${email}\n\nMessage:\n${message}`);
+            
+            window.location.href = `mailto:zorathedevdeveloper@gmail.com?subject=${subject}&body=${body}`;
+            showToast("Redirecting to Email...");
+        }
+    </script>
+</body>
+</html>
