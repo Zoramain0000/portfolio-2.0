@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zorathedeveloper00 | Full Stack, AI & Marketplace</title>
     
+    <!-- SECURITY HEADERS (Cloudflare Enforcement) -->
+    <!-- Force HTTPS Upgrade -->
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <!-- HSTS (Tell browser to ONLY use HTTPS for the next year) -->
+    <meta http-equiv="Strict-Transport-Security" content="max-age=31536000; includeSubDomains">
+    
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,6 +28,7 @@
             --white: #ffffff;
             --text-muted: #cccccc;
             --gray-mid: #666666;
+            --gray-dark: #2c2c2c;
             
             /* Glassmorphism Variables */
             --glass-bg: rgba(10, 10, 10, 0.65);
@@ -205,9 +212,6 @@
             border: 1px solid var(--gray-dark); padding: 25px; border-radius: 4px;
             transition: 0.3s; position: relative;
         }
-        /* Fallback for var(--gray-dark) if not defined in root, usually #333 */
-        .shop-card { border-color: #333; } 
-
         .shop-card:hover { border-color: var(--gold); transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
         
         .price-tag { font-size: 1.4rem; color: var(--gold); font-family: var(--font-display); margin: 10px 0; font-weight: 700; }
@@ -237,7 +241,7 @@
             background: rgba(0, 0, 0, 0.6); margin-top: 30px; border-radius: 4px;
         }
         .znc-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
             gap: 15px; margin: 20px 0; font-family: var(--font-code); font-size: 0.8rem; color: var(--text-muted);
         }
         .znc-item {
@@ -262,7 +266,7 @@
 
         /* --- CONTACT FORM --- */
         .feedback-container {
-            background: var(--glass-bg); border: 1px solid var(--border); padding: 50px;
+            background: var(--glass-bg); border: 1px solid var(--glass-border); padding: 50px;
             max-width: 800px; margin: 50px auto; border-radius: 4px;
         }
         .form-control {
@@ -304,7 +308,7 @@
             .hero-grid { grid-template-columns: 1fr; text-align: center; }
             .hero-text h1 { font-size: 3rem; }
             .profile-wrapper { width: 300px; }
-            .nav-links { display: none; } /* Could add a mobile toggle, kept simple for merge */
+            .nav-links { display: none; }
         }
     </style>
 </head>
@@ -336,7 +340,7 @@
                 <div class="status-pill">
                     <span>●</span> Full Stack & Prompt Engineering
                 </div>
-                <h1>I'm <span class="gradient-text">Zora Gonzales(Zorathedev00)</span></h1>
+                <h1>I'm <span class="gradient-text">Zora Gonzales (Zorathedev00)</span></h1>
                 <p style="color:var(--text-muted); max-width:600px; margin-bottom:30px; font-size: 1.1rem;">
                     Expert in Full Stack Development, AI Integration, and Digital Data Services based in the Philippines.
                 </p>
@@ -353,7 +357,7 @@
         </div>
     </section>
 
-    <!-- SKILLS SECTION (From Doc 2) -->
+    <!-- SKILLS SECTION -->
     <section id="skills" class="section-padding">
         <div class="container">
             
@@ -431,7 +435,7 @@
         </div>
     </section>
 
-    <!-- MARKETPLACE SECTION (From Doc 1) -->
+    <!-- MARKETPLACE SECTION -->
     <section id="marketplace" class="section-padding glass-panel">
         <div class="container">
             <div class="section-title reveal" style="margin-bottom: 10px;">Digital <span class="gold-text">Marketplace</span></div>
@@ -654,7 +658,7 @@
         </div>
     </section>
 
-    <!-- ZNC FOUNDATION COMMUNITY (From Doc 1) -->
+    <!-- ZNC FOUNDATION COMMUNITY (UPDATED LIST) -->
     <section id="community" class="section-padding">
         <div class="container reveal">
             <h2 class="section-title" style="text-align:center;">ZNC Foundation <span class="gold-text">Community</span></h2>
@@ -663,21 +667,27 @@
                 <p style="margin-bottom:30px; text-align:center; color:var(--text-muted);">
                     First thing you need to do: Go to <strong style="color:var(--red);">#🚨2nd-verification</strong> and then react to get access to full features.
                 </p>
-                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">introduction</h4>
+                
+                <!-- Introduction -->
+                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">Introduction</h4>
                 <div class="znc-grid">
                     <div class="znc-item">#✨my-social-media</div>
                     <div class="znc-item">#🚨2nd-verification</div>
                     <div class="znc-item">#🚧-welcomer</div>
                     <div class="znc-item">#🧭review</div>
-                    <div class="znc-item">#🗺️announc-reviews </div>
+                    <div class="znc-item">#🗺️announc-reviews</div>
                 </div>
-                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">boardlab area</h4>
+
+                <!-- Boardlab Area -->
+                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">Boardlab Area</h4>
                 <div class="znc-grid">
                     <div class="znc-item">#✨confession-1</div>
                     <div class="znc-item">#✨confession-2</div>
                     <div class="znc-item">#🚧tutorial-confess</div>
-                    <div class="znc-item">#🚧confess-command </div>
+                    <div class="znc-item">#🚧confess-command</div>
                 </div>
+
+                <!-- Market Sales -->
                 <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">Market Sales</h4>
                 <div class="znc-grid">
                     <div class="znc-item">#📳ip-address</div>
@@ -692,25 +702,31 @@
                     <div class="znc-item">#✨free-books-here-patch-2</div>
                     <div class="znc-item">#✨free-books-here-patch-3</div>
                     <div class="znc-item">#✨free-books-here-patch-4</div>
-                    <div class="znc-item">#✨free-books-here-patch-5 </div>
+                    <div class="znc-item">#✨free-books-here-patch-5</div>
                 </div>
-                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">lesson of course</h4>
+
+                <!-- Lesson of Course -->
+                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">Lesson of Course</h4>
                 <div class="znc-grid">
-                    <div class="znc-item">#🧑‍🧒astrobiology </div>
-                    <div class="znc-item">#🧑‍🧒biology </div>
+                    <div class="znc-item">#🧑‍🧒astrobiology</div>
+                    <div class="znc-item">#🧑‍🧒biology</div>
                     <div class="znc-item">#🧑‍🧒doctor</div>
                     <div class="znc-item">#🧑‍🧒math</div>
                     <div class="znc-item">#🧑‍🧒marketing</div>
                     <div class="znc-item">#🧑‍🧒engineer</div>
                     <div class="znc-item">#🧑‍🧒science</div>
                     <div class="znc-item">#🧑‍🧒it</div>
-                    <div class="znc-item">#🧑‍🧒astrology </div>
+                    <div class="znc-item">#🧑‍🧒astrology</div>
                 </div>
-                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">witch craft spell</h4>
+
+                <!-- Witch Craft Spell -->
+                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">Witch Craft Spell</h4>
                 <div class="znc-grid">
                     <div class="znc-item">#📟spell</div>
-                    <div class="znc-item">#📟work-enhance </div>
+                    <div class="znc-item">#📟work-enhance</div>
                 </div>
+
+                <!-- Spirituality -->
                 <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">Spirituality</h4>
                 <div class="znc-grid">
                     <div class="znc-item">#🐉meditation</div>
@@ -719,23 +735,29 @@
                     <div class="znc-item">#🐉ask-question</div>
                     <div class="znc-item">#🐉ask-question-tutorial</div>
                     <div class="znc-item">#🐉unlimited-money</div>
-                    <div class="znc-item">#🐉unlimited-knowledge </div>
+                    <div class="znc-item">#🐉unlimited-knowledge</div>
                 </div>
-                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">chat shot</h4>
+
+                <!-- Chat Shot -->
+                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">Chat Shot</h4>
                 <div class="znc-grid">
                     <div class="znc-item">#🤯chatgpt</div>
                     <div class="znc-item">#🤯gemini</div>
-                    <div class="znc-item">#🤯others </div>
+                    <div class="znc-item">#🤯others</div>
                 </div>
-                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">information</h4>
+
+                <!-- Information -->
+                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">Information</h4>
                 <div class="znc-grid">
                     <div class="znc-item">#🛠️information-technology-and-arns</div>
                     <div class="znc-item">#🔍tools</div>
                     <div class="znc-item">#🚧linux-commands</div>
                     <div class="znc-item">#🧳english-way</div>
-                    <div class="znc-item">#📳prompt </div>
+                    <div class="znc-item">#📳prompt</div>
                 </div>
-                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">status social</h4>
+
+                <!-- Status Social -->
+                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">Status Social</h4>
                 <div class="znc-grid">
                     <div class="znc-item">#🚨full-stack-dev</div>
                     <div class="znc-item">#🧑‍💻cyber-security</div>
@@ -743,26 +765,34 @@
                     <div class="znc-item">#🧑‍💻illegal-hacker</div>
                     <div class="znc-item">#🧑‍💻programming</div>
                     <div class="znc-item">#🧑‍💻etc</div>
-                    <div class="znc-item">#🧑‍💻hacker-thoughts </div>
+                    <div class="znc-item">#🧑‍💻hacker-thoughts</div>
                 </div>
-                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">dashboard fun</h4>
+
+                <!-- Dashboard Fun -->
+                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">Dashboard Fun</h4>
                 <div class="znc-grid">
                     <div class="znc-item">#🖼️-self-pics</div>
                     <div class="znc-item">#🖼️-memes</div>
                     <div class="znc-item">#🖼️-anim-pics</div>
-                    <div class="znc-item">#🖼️-ai-pics </div>
+                    <div class="znc-item">#🖼️-ai-pics</div>
                 </div>
-                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">main laboratory</h4>
+
+                <!-- Main Laboratory -->
+                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">Main Laboratory</h4>
                 <div class="znc-grid">
                     <div class="znc-item">#⛺main-chat</div>
                     <div class="znc-item">#⛺english-chat</div>
-                    <div class="znc-item">#⛺bot-chat </div>
+                    <div class="znc-item">#⛺bot-chat</div>
                 </div>
-                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">voice channel</h4>
+
+                <!-- Voice Channel -->
+                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">Voice Channel</h4>
                 <div class="znc-grid">
-                    <div class="znc-item">#👁️karaoke-rent </div>
+                    <div class="znc-item">#👁️karaoke-rent</div>
                 </div>
-                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">Custom channel</h4>
+
+                <!-- Custom Channel -->
+                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">Custom Channel</h4>
                 <div class="znc-grid">
                     <div class="znc-item">#🖼️chat-bot</div>
                     <div class="znc-item">#💬demo-1</div>
@@ -772,29 +802,37 @@
                     <div class="znc-item">#💬demo-5</div>
                     <div class="znc-item">#💬demo-6</div>
                 </div>
-                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">personality traits</h4>
+
+                <!-- Personality Traits -->
+                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">Personality Traits</h4>
                 <div class="znc-grid">
                     <div class="znc-item">#🍸share-your-personality-here</div>
                     <div class="znc-item">#🍸zodiac-sign</div>
                     <div class="znc-item">#🍸negative-traits</div>
                     <div class="znc-item">#🍸common-traits</div>
-                    <div class="znc-item">#🍸positive-traits </div>
+                    <div class="znc-item">#🍸positive-traits</div>
                 </div>
-                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">Public documents</h4>
+
+                <!-- Public Documents -->
+                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">Public Documents</h4>
                 <div class="znc-grid">
                     <div class="znc-item">#🌐-social-media</div>
                     <div class="znc-item">#🌐-social-website</div>
                     <div class="znc-item">#🌐-social-link</div>
-                    <div class="znc-item">#🌐-social-web </div>
+                    <div class="znc-item">#🌐-social-web</div>
                 </div>
-                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">Public Tools review</h4>
+
+                <!-- Public Tools Review -->
+                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">Public Tools Review</h4>
                 <div class="znc-grid">
                     <div class="znc-item">#📚tutorial-of-tools</div>
-                    <div class="znc-item">#📚drop-here-the-github-tools </div>
+                    <div class="znc-item">#📚drop-here-the-github-tools</div>
                 </div>
-                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">artificial intelligence</h4>
+
+                <!-- Artificial Intelligence -->
+                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">Artificial Intelligence</h4>
                 <div class="znc-grid">
-                    <div class="znc-item"> #📼tutorial-how-to-use-zora-bot</div>
+                    <div class="znc-item">#📼tutorial-how-to-use-zora-bot</div>
                     <div class="znc-item">#📼zora-the-bot</div>
                     <div class="znc-item">#🌐chat-gpt-3-tutorial</div>
                     <div class="znc-item">#🌐chat-gpt-3</div>
@@ -809,30 +847,41 @@
                     <div class="znc-item">#🚨avd4-tutorial</div>
                     <div class="znc-item">#🚨avd4-chat</div>
                 </div>
+
+                <!-- Regional vs says info -->
                 <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">Regional vs says info</h4>
                 <div class="znc-grid">
-                    <div class="znc-item">#🚧-books-versus-say-here </div>
+                    <div class="znc-item">#🚧-books-versus-say-here</div>
                 </div>
-                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">Public project</h4>
+
+                <!-- Public Project -->
+                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">Public Project</h4>
                 <div class="znc-grid">
                     <div class="znc-item">#🌐project-code-for-free</div>
                 </div>
-                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">Public education</h4>
+
+                <!-- Public Education -->
+                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">Public Education</h4>
                 <div class="znc-grid">
-                    <div class="znc-item"> #📟random-books</div>
+                    <div class="znc-item">#📟random-books</div>
                     <div class="znc-item">#📟selling-tc</div>
                     <div class="znc-item">#💬tips-for-study</div>
                 </div>
-                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">Hacking tools</h4>
+
+                <!-- Hacking Tools -->
+                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">Hacking Tools</h4>
                 <div class="znc-grid">
                     <div class="znc-item">#📼hacking-tools</div>
                     <div class="znc-item">#📼how-to-hack-tutorial</div>
                 </div>
-                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">Hacking journey step</h4>
+
+                <!-- Hacking Journey Step -->
+                <h4 style="margin:20px 0 10px; color:var(--white); border-bottom: 1px solid #333; padding-bottom:5px;">Hacking Journey Step</h4>
                 <div class="znc-grid">
-                    <div class="znc-item"> #🛠️welcome-to-newbie</div>
-                    <div class="znc-item">#🛠️lawyer-rules-here </div>
+                    <div class="znc-item">#🛠️welcome-to-newbie</div>
+                    <div class="znc-item">#🛠️lawyer-rules-here</div>
                 </div>
+
                 <p style="margin-top:30px; text-align:center; color:var(--text-muted); font-size:0.9rem;">
                     We also have hacking tools, games suggestions, personality traits, and more!<br>
                     <strong class="gold-text">Connect below to join</strong>
